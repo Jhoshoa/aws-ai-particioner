@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "aws-ai-practitioner-dev",
+    "staging": "aws-ai-practitioner-staging",
+    "production": "aws-ai-practitioner-prod"
+  },
+  "targets": {},
+  "etags": {}
+}
