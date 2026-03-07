@@ -7,18 +7,19 @@ export interface User {
   email: string;
   displayName: string | null;
   photoURL: string | null;
-  createdAt: Date;
-  updatedAt: Date;
+  role: 'user' | 'admin';
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }
 
 export interface UserProgress {
   id: string;
   userId: string;
-  domainId: number;
-  topicId: string;
+  domainId: string;
+  topicIndex: number;
   completed: boolean;
-  completedAt: Date | null;
-  updatedAt: Date;
+  completedAt: Date | string | null;
+  updatedAt: Date | string;
 }
 
 // ============================================
@@ -26,24 +27,35 @@ export interface UserProgress {
 // ============================================
 
 export interface Domain {
-  id: number;
+  id: string;
+  domainNumber: number;
   name: string;
   weight: number;
   color: string;
   weeks: string;
   topics: string[];
+  order: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 }
+
+// Input type for creating domains (without id)
+export type CreateDomainInput = Omit<Domain, 'id' | 'createdAt' | 'updatedAt'>;
 
 // ============================================
 // Study Plan Types
 // ============================================
 
 export interface StudyWeek {
+  id: string;
   week: number;
   phase: StudyPhase;
-  domain: number | null;
+  domainNumber: number | null;
   daily: string[];
   milestone: string;
+  order: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 }
 
 export type StudyPhase =
@@ -56,6 +68,8 @@ export type StudyPhase =
   | 'Exam Prep'
   | 'Final Push';
 
+export type CreateStudyWeekInput = Omit<StudyWeek, 'id' | 'createdAt' | 'updatedAt'>;
+
 // ============================================
 // Resource Types
 // ============================================
@@ -66,9 +80,14 @@ export interface Resource {
   name: string;
   url: string;
   note: string;
+  order: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 }
 
 export type ResourceType = 'FREE' | 'PAID' | 'PRACTICE' | 'OFFICIAL';
+
+export type CreateResourceInput = Omit<Resource, 'id' | 'createdAt' | 'updatedAt'>;
 
 // ============================================
 // Note Types
@@ -88,11 +107,21 @@ export interface Note {
 // API Response Types
 // ============================================
 
-export interface ApiResponse<T> {
+export interface ApiSuccessResponse<T> {
+  success: true;
   data: T;
-  success: boolean;
-  error?: string;
 }
+
+export interface ApiErrorResponse {
+  success: false;
+  error: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+}
+
+export type ApiResponse<T> = ApiSuccessResponse<T> | ApiErrorResponse;
 
 export interface PaginatedResponse<T> {
   data: T[];

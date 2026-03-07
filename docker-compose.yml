@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Firebase Emulators
+  firebase-emulators:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.emulators
+    container_name: aws-ai-firebase-emulators
+    stop_grace_period: 60s
+    restart: unless-stopped
+    ports:
+      - "4000:4000"   # Emulator UI
+      - "5000:5000"   # Hosting
+      - "5001:5001"   # Functions
+      - "8080:8080"   # Firestore
+      - "9099:9099"   # Auth
+      - "9199:9199"   # Storage
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/functions/node_modules
+      - /app/packages/shared-types/node_modules
+      - ./emulator-data:/app/emulator-data
+    environment:
+      - FIREBASE_TOKEN=${FIREBASE_TOKEN:-}
+      - GCLOUD_PROJECT=aws-ai-practitioner-dev
+    working_dir: /app
+    command: >
+      firebase emulators:start
+      --import=/app/emulator-data
+      --export-on-exit=/app/emulator-data
+    networks:
+      - aws-ai-network
+
+  # Frontend Development Server
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend.dev
+    container_name: aws-ai-frontend-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:5001/aws-ai-practitioner-dev/us-central1/api
+      - VITE_FIREBASE_PROJECT_ID=aws-ai-practitioner-dev
+      - VITE_USE_EMULATORS=true
+      - VITE_FIREBASE_AUTH_DOMAIN=aws-ai-practitioner-dev.firebaseapp.com
+      - VITE_FIREBASE_STORAGE_BUCKET=aws-ai-practitioner-dev.appspot.com
+    working_dir: /app
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - firebase-emulators
+    networks:
+      - aws-ai-network
+
+networks:
+  aws-ai-network:
+    driver: bridge
+
+volumes:
+  emulator-data:

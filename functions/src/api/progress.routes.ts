@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Request, Response } from 'express';
 import { body, param } from 'express-validator';
 import { progressService } from '../services';
 import {
@@ -11,7 +11,6 @@ import {
   successResponse,
   noContentResponse,
 } from '../utils/response.utils';
-import { AuthenticatedRequest } from '../types';
 
 const router = Router();
 
@@ -22,8 +21,8 @@ const router = Router();
 router.get(
   '/',
   authenticate,
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-    const progress = await progressService.getUserProgress(req.user.uid);
+  asyncHandler(async (req: Request, res: Response) => {
+    const progress = await progressService.getUserProgress(req.user!.uid);
     return successResponse(res, progress, 'Progress retrieved successfully');
   })
 );
@@ -35,8 +34,8 @@ router.get(
 router.get(
   '/summary',
   authenticate,
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-    const summary = await progressService.getProgressSummary(req.user.uid);
+  asyncHandler(async (req: Request, res: Response) => {
+    const summary = await progressService.getProgressSummary(req.user!.uid);
     return successResponse(res, summary, 'Progress summary retrieved successfully');
   })
 );
@@ -54,10 +53,10 @@ router.get(
       .withMessage('Domain ID must be between 1 and 10')
       .toInt(),
   ]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const domainId = parseInt(req.params.domainId, 10);
     const progress = await progressService.getProgressByDomain(
-      req.user.uid,
+      req.user!.uid,
       domainId
     );
     return successResponse(res, progress, 'Domain progress retrieved successfully');
@@ -76,21 +75,19 @@ router.post(
       .isInt({ min: 1, max: 10 })
       .withMessage('Domain ID must be between 1 and 10')
       .toInt(),
-    body('topicId')
-      .trim()
-      .notEmpty()
-      .withMessage('Topic ID is required')
-      .isLength({ max: 100 })
-      .withMessage('Topic ID must be at most 100 characters'),
+    body('topicIndex')
+      .isInt({ min: 0 })
+      .withMessage('Topic index must be a non-negative integer')
+      .toInt(),
     validateBoolean('completed'),
   ]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-    const { domainId, topicId, completed } = req.body;
+  asyncHandler(async (req: Request, res: Response) => {
+    const { domainId, topicIndex, completed } = req.body;
 
     const progress = await progressService.updateProgress(
-      req.user.uid,
+      req.user!.uid,
       domainId,
-      topicId,
+      topicIndex,
       completed
     );
 
@@ -105,8 +102,8 @@ router.post(
 router.delete(
   '/',
   authenticate,
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-    await progressService.resetProgress(req.user.uid);
+  asyncHandler(async (req: Request, res: Response) => {
+    await progressService.resetProgress(req.user!.uid);
     return noContentResponse(res);
   })
 );
@@ -116,23 +113,23 @@ router.delete(
  * Delete progress for a specific topic
  */
 router.delete(
-  '/:domainId/:topicId',
+  '/:domainId/:topicIndex',
   authenticate,
   validate([
     param('domainId')
       .isInt({ min: 1, max: 10 })
       .withMessage('Domain ID must be between 1 and 10')
       .toInt(),
-    param('topicId')
-      .trim()
-      .notEmpty()
-      .withMessage('Topic ID is required'),
+    param('topicIndex')
+      .isInt({ min: 0 })
+      .withMessage('Topic index must be a non-negative integer')
+      .toInt(),
   ]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const domainId = parseInt(req.params.domainId, 10);
-    const { topicId } = req.params;
+    const topicIndex = parseInt(req.params.topicIndex, 10);
 
-    await progressService.deleteProgress(req.user.uid, domainId, topicId);
+    await progressService.deleteProgress(req.user!.uid, domainId, topicIndex);
     return noContentResponse(res);
   })
 );

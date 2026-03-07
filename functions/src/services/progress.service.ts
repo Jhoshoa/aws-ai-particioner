@@ -47,10 +47,10 @@ export const progressService = {
   async updateProgress(
     userId: string,
     domainId: number,
-    topicId: string,
+    topicIndex: number,
     completed: boolean
   ): Promise<UserProgress & { id: string }> {
-    const progressId = `${domainId}-${topicId}`;
+    const progressId = `${domainId}-${topicIndex}`;
     const docRef = db
       .collection(USERS_COLLECTION)
       .doc(userId)
@@ -59,8 +59,8 @@ export const progressService = {
 
     const data: Partial<UserProgress> = {
       userId,
-      domainId,
-      topicId,
+      domainId: String(domainId),
+      topicIndex,
       completed,
       completedAt: completed ? new Date() : null,
       updatedAt: new Date(),
@@ -98,12 +98,12 @@ export const progressService = {
       totalTopics += domainTopics;
 
       const completedInDomain = progress.filter(
-        (p) => p.domainId === domain.id && p.completed
+        (p) => p.domainId === String(domain.domainNumber) && p.completed
       ).length;
       completedTopics += completedInDomain;
 
       return {
-        domainId: domain.id,
+        domainId: domain.domainNumber,
         domainName: domain.name,
         totalTopics: domainTopics,
         completedTopics: completedInDomain,
@@ -149,9 +149,9 @@ export const progressService = {
   async deleteProgress(
     userId: string,
     domainId: number,
-    topicId: string
+    topicIndex: number
   ): Promise<void> {
-    const progressId = `${domainId}-${topicId}`;
+    const progressId = `${domainId}-${topicIndex}`;
     const docRef = db
       .collection(USERS_COLLECTION)
       .doc(userId)

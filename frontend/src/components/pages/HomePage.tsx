@@ -4,14 +4,25 @@ import { MainLayout } from '../templates';
 import { Text, Badge, Spinner } from '../atoms';
 import { Card, StatBox, TabButton, Alert } from '../molecules';
 import { DomainCard } from '../organisms';
-import { useGetDomainsQuery, useGetResourcesQuery } from '../../store/api';
+import {
+  useGetDomainsQuery,
+  useGetResourcesQuery,
+  useGetStudyPlanQuery,
+} from '../../store/api';
 
-type TabType = 'overview' | 'domains' | 'resources';
+type TabType = 'overview' | 'domains' | 'study-plan' | 'resources';
 
 export function HomePage() {
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const { data: domains, isLoading: domainsLoading, error: domainsError } = useGetDomainsQuery();
   const { data: resources, isLoading: resourcesLoading } = useGetResourcesQuery();
+  const { data: studyPlan, isLoading: studyPlanLoading } = useGetStudyPlanQuery();
+
+  const getDomainColor = (domainNumber: number | null) => {
+    if (!domainNumber || !domains) return '#6B7280';
+    const domain = domains.find((d) => d.domainNumber === domainNumber);
+    return domain?.color || '#6B7280';
+  };
 
   if (domainsLoading) {
     return (
@@ -76,13 +87,13 @@ export function HomePage() {
 
         {/* Tabs */}
         <div className="flex gap-1 mt-8 border-b border-cyber-border">
-          {(['overview', 'domains', 'resources'] as TabType[]).map((tab) => (
+          {(['overview', 'domains', 'study-plan', 'resources'] as TabType[]).map((tab) => (
             <TabButton
               key={tab}
               active={activeTab === tab}
               onClick={() => setActiveTab(tab)}
             >
-              {tab}
+              {tab === 'study-plan' ? '12-week plan' : tab}
             </TabButton>
           ))}
         </div>
@@ -110,7 +121,7 @@ export function HomePage() {
                         borderColor: `${domain.color}44`,
                       }}
                     >
-                      DOMAIN {domain.id}
+                      DOMAIN {domain.domainNumber}
                     </Badge>
                     <span
                       className="text-sm font-semibold px-2.5 py-0.5 rounded-full"
@@ -171,6 +182,107 @@ export function HomePage() {
             {domains.map((domain) => (
               <DomainCard key={domain.id} domain={domain} />
             ))}
+          </div>
+        )}
+
+        {activeTab === 'study-plan' && (
+          <div className="space-y-6">
+            <Card>
+              <Text variant="label" className="mb-4">
+                12-WEEK STUDY PLAN
+              </Text>
+              {studyPlanLoading ? (
+                <div className="flex justify-center py-8">
+                  <Spinner />
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-cyber-border">
+                        <th className="text-left py-3 px-3 font-sans font-semibold text-cyber-muted">
+                          Week
+                        </th>
+                        <th className="text-left py-3 px-3 font-sans font-semibold text-cyber-muted">
+                          Phase
+                        </th>
+                        <th className="text-left py-3 px-3 font-sans font-semibold text-cyber-muted">
+                          Domain
+                        </th>
+                        <th className="text-left py-3 px-3 font-sans font-semibold text-cyber-muted">
+                          Daily Tasks (1hr total)
+                        </th>
+                        <th className="text-left py-3 px-3 font-sans font-semibold text-cyber-muted">
+                          Milestone
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {studyPlan?.map((week) => (
+                        <tr
+                          key={week.id}
+                          className="border-b border-cyber-border/30 hover:bg-cyber-bg/30 transition-colors"
+                        >
+                          <td className="py-3 px-3">
+                            <span
+                              className="font-display text-lg"
+                              style={{ color: getDomainColor(week.domainNumber) }}
+                            >
+                              {week.week}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3">
+                            <Badge
+                              size="sm"
+                              variant={
+                                week.phase === 'Foundation'
+                                  ? 'cyan'
+                                  : week.phase === 'GenAI Core'
+                                    ? 'orange'
+                                    : week.phase === 'Applications'
+                                      ? 'gold'
+                                      : week.phase === 'Responsible AI'
+                                        ? 'green'
+                                        : week.phase === 'Security'
+                                          ? 'pink'
+                                          : 'cyan'
+                              }
+                            >
+                              {week.phase}
+                            </Badge>
+                          </td>
+                          <td className="py-3 px-3">
+                            {week.domainNumber ? (
+                              <span
+                                className="font-semibold"
+                                style={{ color: getDomainColor(week.domainNumber) }}
+                              >
+                                D{week.domainNumber}
+                              </span>
+                            ) : (
+                              <span className="text-cyber-muted">—</span>
+                            )}
+                          </td>
+                          <td className="py-3 px-3">
+                            <ul className="space-y-1">
+                              {week.daily.map((task, i) => (
+                                <li key={i} className="flex items-start gap-2 text-cyber-text/90">
+                                  <span className="text-accent-cyan flex-shrink-0">•</span>
+                                  {task}
+                                </li>
+                              ))}
+                            </ul>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="text-cyber-text font-semibold">{week.milestone}</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </Card>
           </div>
         )}
 

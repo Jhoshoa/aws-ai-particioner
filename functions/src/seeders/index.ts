@@ -5,7 +5,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 // This uses the service account credentials or emulator
 if (!admin.apps.length) {
   if (process.env.FIRESTORE_EMULATOR_HOST) {
-    admin.initializeApp({ projectId: 'demo-aws-ai-practitioner' });
+    admin.initializeApp({ projectId: 'aws-ai-practitioner-dev' });
   } else {
     admin.initializeApp();
   }
@@ -19,11 +19,12 @@ const db = getFirestore();
 
 const domains = [
   {
-    id: 1,
+    domainNumber: 1,
     name: 'Fundamentals of AI & ML',
     weight: 20,
     color: '#00D4FF',
     weeks: '1–2',
+    order: 1,
     topics: [
       'AI vs ML vs Deep Learning definitions',
       'Supervised, Unsupervised, Reinforcement Learning',
@@ -38,11 +39,12 @@ const domains = [
     ],
   },
   {
-    id: 2,
+    domainNumber: 2,
     name: 'Fundamentals of Generative AI',
     weight: 24,
     color: '#FF6B35',
     weeks: '3–4',
+    order: 2,
     topics: [
       'What is Generative AI & Large Language Models (LLMs)',
       'Transformers architecture basics',
@@ -59,11 +61,12 @@ const domains = [
     ],
   },
   {
-    id: 3,
+    domainNumber: 3,
     name: 'Applications of Foundation Models',
     weight: 28,
     color: '#FFD700',
     weeks: '5–7',
+    order: 3,
     topics: [
       'RAG (Retrieval-Augmented Generation) architecture',
       'Amazon Bedrock Knowledge Bases',
@@ -80,11 +83,12 @@ const domains = [
     ],
   },
   {
-    id: 4,
+    domainNumber: 4,
     name: 'Guidelines for Responsible AI',
     weight: 14,
     color: '#00FF88',
     weeks: '8',
+    order: 4,
     topics: [
       'Fairness, bias, and discrimination in AI',
       'Transparency and explainability (XAI)',
@@ -99,11 +103,12 @@ const domains = [
     ],
   },
   {
-    id: 5,
+    domainNumber: 5,
     name: 'Security, Compliance & Governance',
     weight: 14,
     color: '#FF4D8D',
     weeks: '9',
+    order: 5,
     topics: [
       'AWS IAM for AI/ML services',
       'Data encryption at rest and in transit',
@@ -125,58 +130,65 @@ const resources = [
     name: 'Andrew Brown – FreeCodeCamp 15hr Course',
     url: 'https://youtube.com',
     note: 'Best free full course, by AWS Community Hero',
+    order: 1,
   },
   {
     type: 'PAID',
     name: 'Stephane Maarek – Udemy Course',
     url: 'https://udemy.com',
     note: '~$15 on sale. Most popular paid option',
+    order: 2,
   },
   {
     type: 'PRACTICE',
     name: 'Tutorials Dojo AIF-C01 Practice Exams',
     url: 'https://tutorialsdojo.com',
     note: '135 Qs, section-based & timed modes',
+    order: 3,
   },
   {
     type: 'PRACTICE',
     name: 'Stephane Maarek Practice Tests (Udemy)',
     url: 'https://udemy.com',
     note: '260 Qs, co-authored with Abhishek Singh',
+    order: 4,
   },
   {
     type: 'FREE',
     name: 'AWS Skill Builder – Official Course',
     url: 'https://skillbuilder.aws',
     note: 'Official AWS content, free tier available',
+    order: 5,
   },
   {
     type: 'FREE',
     name: 'ExamTopics AIF-C01 (free Qs)',
     url: 'https://examtopics.com',
     note: '20 free questions + community discussions',
+    order: 6,
   },
   {
     type: 'OFFICIAL',
     name: 'AWS Official Exam Guide AIF-C01',
     url: 'https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html',
     note: 'Read this FIRST — defines exact scope',
+    order: 7,
   },
 ];
 
 const studyPlan = [
-  { week: 1, phase: 'Foundation', domain: 1, daily: ['Read AWS AI/ML overview docs (20 min)', 'Watch 1 SageMaker intro video (20 min)', 'Take notes in your repo (20 min)'], milestone: 'Understand the AI/ML landscape' },
-  { week: 2, phase: 'Foundation', domain: 1, daily: ['Study ML algorithms & metrics (20 min)', 'AWS Free Tier: explore SageMaker Studio (20 min)', 'Practice 10 questions on Domain 1 (20 min)'], milestone: 'Score 70%+ on Domain 1 mock' },
-  { week: 3, phase: 'GenAI Core', domain: 2, daily: ['Study LLM concepts & transformers (20 min)', 'Explore Amazon Bedrock console (20 min)', 'Take notes + 10 practice Qs (20 min)'], milestone: 'Understand GenAI fundamentals' },
-  { week: 4, phase: 'GenAI Core', domain: 2, daily: ['Deep dive: prompt engineering (20 min)', 'Hands-on: Amazon Q / PartyRock (20 min)', 'Practice 15 questions Domain 2 (20 min)'], milestone: 'Score 70%+ on Domain 2 mock' },
-  { week: 5, phase: 'Applications', domain: 3, daily: ['Study RAG architecture (20 min)', 'Explore Bedrock Knowledge Bases (20 min)', 'Diagram RAG flow in notes (20 min)'], milestone: 'Explain RAG end-to-end' },
-  { week: 6, phase: 'Applications', domain: 3, daily: ['Study Bedrock Agents & Guardrails (20 min)', 'Read fine-tuning vs RAG comparison (20 min)', '20 practice Qs Domain 3 (20 min)'], milestone: 'Master Domain 3 concepts' },
-  { week: 7, phase: 'Applications', domain: 3, daily: ['Review model selection criteria (20 min)', 'Cost & latency optimization review (20 min)', 'Full Domain 3 mock test (20 min)'], milestone: 'Score 75%+ on Domain 3 mock' },
-  { week: 8, phase: 'Responsible AI', domain: 4, daily: ['Study responsible AI principles (20 min)', 'Review SageMaker Clarify docs (20 min)', '10 practice Qs + notes (20 min)'], milestone: 'Know all AWS responsible AI tools' },
-  { week: 9, phase: 'Security', domain: 5, daily: ['Study IAM, encryption for AI (20 min)', 'Review compliance + Bedrock privacy (20 min)', '15 practice Qs Domain 5 (20 min)'], milestone: 'Score 70%+ on Domains 4+5' },
-  { week: 10, phase: 'Full Review', domain: null, daily: ['Full 65-question mock exam (30 min)', 'Review wrong answers deeply (20 min)', 'Re-read weak domain notes (10 min)'], milestone: 'Score 750+ on full mock' },
-  { week: 11, phase: 'Exam Prep', domain: null, daily: ['Second full mock exam (30 min)', 'Flashcard review (15 min)', 'AWS whitepapers skim (15 min)'], milestone: 'Consistent 800+ score' },
-  { week: 12, phase: 'Final Push', domain: null, daily: ['Light review of all domain summaries (30 min)', 'Rest + confidence building (15 min)', 'Schedule & take the exam!'], milestone: 'PASS AIF-C01!' },
+  { week: 1, phase: 'Foundation', domainNumber: 1, daily: ['Read AWS AI/ML overview docs (20 min)', 'Watch 1 SageMaker intro video (20 min)', 'Take notes in your repo (20 min)'], milestone: 'Understand the AI/ML landscape', order: 1 },
+  { week: 2, phase: 'Foundation', domainNumber: 1, daily: ['Study ML algorithms & metrics (20 min)', 'AWS Free Tier: explore SageMaker Studio (20 min)', 'Practice 10 questions on Domain 1 (20 min)'], milestone: 'Score 70%+ on Domain 1 mock', order: 2 },
+  { week: 3, phase: 'GenAI Core', domainNumber: 2, daily: ['Study LLM concepts & transformers (20 min)', 'Explore Amazon Bedrock console (20 min)', 'Take notes + 10 practice Qs (20 min)'], milestone: 'Understand GenAI fundamentals', order: 3 },
+  { week: 4, phase: 'GenAI Core', domainNumber: 2, daily: ['Deep dive: prompt engineering (20 min)', 'Hands-on: Amazon Q / PartyRock (20 min)', 'Practice 15 questions Domain 2 (20 min)'], milestone: 'Score 70%+ on Domain 2 mock', order: 4 },
+  { week: 5, phase: 'Applications', domainNumber: 3, daily: ['Study RAG architecture (20 min)', 'Explore Bedrock Knowledge Bases (20 min)', 'Diagram RAG flow in notes (20 min)'], milestone: 'Explain RAG end-to-end', order: 5 },
+  { week: 6, phase: 'Applications', domainNumber: 3, daily: ['Study Bedrock Agents & Guardrails (20 min)', 'Read fine-tuning vs RAG comparison (20 min)', '20 practice Qs Domain 3 (20 min)'], milestone: 'Master Domain 3 concepts', order: 6 },
+  { week: 7, phase: 'Applications', domainNumber: 3, daily: ['Review model selection criteria (20 min)', 'Cost & latency optimization review (20 min)', 'Full Domain 3 mock test (20 min)'], milestone: 'Score 75%+ on Domain 3 mock', order: 7 },
+  { week: 8, phase: 'Responsible AI', domainNumber: 4, daily: ['Study responsible AI principles (20 min)', 'Review SageMaker Clarify docs (20 min)', '10 practice Qs + notes (20 min)'], milestone: 'Know all AWS responsible AI tools', order: 8 },
+  { week: 9, phase: 'Security', domainNumber: 5, daily: ['Study IAM, encryption for AI (20 min)', 'Review compliance + Bedrock privacy (20 min)', '15 practice Qs Domain 5 (20 min)'], milestone: 'Score 70%+ on Domains 4+5', order: 9 },
+  { week: 10, phase: 'Full Review', domainNumber: null, daily: ['Full 65-question mock exam (30 min)', 'Review wrong answers deeply (20 min)', 'Re-read weak domain notes (10 min)'], milestone: 'Score 750+ on full mock', order: 10 },
+  { week: 11, phase: 'Exam Prep', domainNumber: null, daily: ['Second full mock exam (30 min)', 'Flashcard review (15 min)', 'AWS whitepapers skim (15 min)'], milestone: 'Consistent 800+ score', order: 11 },
+  { week: 12, phase: 'Final Push', domainNumber: null, daily: ['Light review of all domain summaries (30 min)', 'Rest + confidence building (15 min)', 'Schedule & take the exam!'], milestone: 'PASS AIF-C01!', order: 12 },
 ];
 
 // ============================================
@@ -188,7 +200,7 @@ async function seedDomains() {
   const batch = db.batch();
 
   for (const domain of domains) {
-    const ref = db.collection('domains').doc(String(domain.id));
+    const ref = db.collection('domains').doc(`domain-${domain.domainNumber}`);
     batch.set(ref, {
       ...domain,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),

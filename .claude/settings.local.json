@@ -3,7 +3,11 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npm run typecheck:*)",
-      "Bash(timeout 10 npm run dev:*)"
+      "Bash(timeout 10 npm run dev:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(curl:*)",
+      "Bash(docker logs:*)"
     ]
   }
 }

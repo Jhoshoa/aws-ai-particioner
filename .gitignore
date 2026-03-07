@@ -12,7 +12,9 @@ out/
 
 # Firebase
 .firebase/
+*-debug.log
 .firebase-data/
+emulator-data/
 firebase-debug.log
 firebase-debug.*.log
 firestore-debug.log
@@ -20,6 +22,8 @@ ui-debug.log
 pubsub-debug.log
 database-debug.log
 storage-debug.log
+auth-debug.log
+firebase-export-*/
 
 # Environment files
 .env

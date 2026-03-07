@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Request, Response } from 'express';
 import { userService } from '../services';
 import {
   asyncHandler,
@@ -8,13 +8,11 @@ import {
   validateId,
   validateOptionalString,
   validateOptionalUrl,
-  validateBoolean,
 } from '../middleware';
 import {
   successResponse,
   noContentResponse,
 } from '../utils/response.utils';
-import { AuthenticatedRequest } from '../types';
 import { body } from 'express-validator';
 
 const router = Router();
@@ -26,8 +24,8 @@ const router = Router();
 router.get(
   '/me',
   authenticate,
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-    const user = await userService.getById(req.user.uid);
+  asyncHandler(async (req: Request, res: Response) => {
+    const user = await userService.getById(req.user!.uid);
     return successResponse(res, user, 'User profile retrieved successfully');
   })
 );
@@ -43,8 +41,8 @@ router.put(
     validateOptionalString('displayName', 100),
     validateOptionalUrl('photoURL'),
   ]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-    const user = await userService.update(req.user.uid, req.body);
+  asyncHandler(async (req: Request, res: Response) => {
+    const user = await userService.update(req.user!.uid, req.body);
     return successResponse(res, user, 'User profile updated successfully');
   })
 );
@@ -56,8 +54,8 @@ router.put(
 router.delete(
   '/me',
   authenticate,
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-    await userService.delete(req.user.uid);
+  asyncHandler(async (req: Request, res: Response) => {
+    await userService.delete(req.user!.uid);
     return noContentResponse(res);
   })
 );
@@ -75,7 +73,7 @@ router.get(
   authenticate,
   requireAdmin,
   validate([validateId('id')]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const user = await userService.getById(req.params.id);
     return successResponse(res, user, 'User retrieved successfully');
   })
@@ -93,7 +91,7 @@ router.put(
     validateId('id'),
     body('isAdmin').isBoolean().withMessage('isAdmin must be a boolean'),
   ]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const { isAdmin } = req.body;
     await userService.setAdminClaim(req.params.id, isAdmin);
     return successResponse(
@@ -113,7 +111,7 @@ router.delete(
   authenticate,
   requireAdmin,
   validate([validateId('id')]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     await userService.delete(req.params.id);
     return noContentResponse(res);
   })

@@ -13,18 +13,22 @@ export const resourceService = {
   /**
    * Get all resources
    */
-  async getAll(): Promise<(Resource & { id: string })[]> {
-    const snapshot = await db.collection(COLLECTION).get();
+  async getAll(): Promise<Resource[]> {
+    const snapshot = await db
+      .collection(COLLECTION)
+      .orderBy('order', 'asc')
+      .get();
     return snapshot.docs.map((doc) => docToObject<Resource>(doc));
   },
 
   /**
    * Get resources by type
    */
-  async getByType(type: string): Promise<(Resource & { id: string })[]> {
+  async getByType(type: string): Promise<Resource[]> {
     const snapshot = await db
       .collection(COLLECTION)
       .where('type', '==', type)
+      .orderBy('order', 'asc')
       .get();
 
     return snapshot.docs.map((doc) => docToObject<Resource>(doc));
@@ -33,7 +37,7 @@ export const resourceService = {
   /**
    * Get resource by ID
    */
-  async getById(resourceId: string): Promise<Resource & { id: string }> {
+  async getById(resourceId: string): Promise<Resource> {
     const doc = await db.collection(COLLECTION).doc(resourceId).get();
 
     if (!doc.exists) {
@@ -46,9 +50,7 @@ export const resourceService = {
   /**
    * Create a new resource
    */
-  async create(
-    data: Omit<Resource, 'id'>
-  ): Promise<Resource & { id: string }> {
+  async create(data: Omit<Resource, 'id'>): Promise<Resource> {
     const id = uuidv4();
     const docRef = db.collection(COLLECTION).doc(id);
 
@@ -65,10 +67,7 @@ export const resourceService = {
   /**
    * Update a resource
    */
-  async update(
-    resourceId: string,
-    data: Partial<Resource>
-  ): Promise<Resource & { id: string }> {
+  async update(resourceId: string, data: Partial<Resource>): Promise<Resource> {
     const docRef = db.collection(COLLECTION).doc(resourceId);
     const doc = await docRef.get();
 

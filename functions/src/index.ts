@@ -42,13 +42,10 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-// API routes
-app.use('/api', apiRoutes);
+// API routes (mounted at root since function is named 'api')
+app.use('/', apiRoutes);
 
-// Legacy routes (redirect to /api)
-app.use('/health', (_req, res) => {
-  res.redirect('/api/health');
-});
+// Legacy health route at root level is now handled by apiRoutes
 
 // 404 handler
 app.use(notFoundHandler);

@@ -27,12 +27,16 @@ export interface UserProgress {
 // ============================================
 
 export interface Domain {
-  id: number;
+  id: string;
+  domainNumber: number;
   name: string;
   weight: number;
   color: string;
   weeks: string;
   topics: string[];
+  order: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 // ============================================
@@ -40,11 +44,15 @@ export interface Domain {
 // ============================================
 
 export interface StudyWeek {
+  id: string;
   week: number;
   phase: StudyPhase;
-  domain: number | null;
+  domainNumber: number | null;
   daily: string[];
   milestone: string;
+  order: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type StudyPhase =
@@ -67,6 +75,9 @@ export interface Resource {
   name: string;
   url: string;
   note: string;
+  order: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type ResourceType = 'FREE' | 'PAID' | 'PRACTICE' | 'OFFICIAL';

@@ -1,7 +1,16 @@
-import { Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { auth } from '../config/firebase.config';
-import { AuthenticatedRequest, AuthUser } from '../types';
+import { AuthUser } from '../types';
 import { AuthError, ForbiddenError } from '../types/errors';
+
+// Extend Express Request to include user property
+declare global {
+  namespace Express {
+    interface Request {
+      user?: AuthUser;
+    }
+  }
+}
 
 /**
  * Extract Bearer token from Authorization header
@@ -18,7 +27,7 @@ function extractBearerToken(authHeader?: string): string | null {
  * Attaches user info to request object
  */
 export async function authenticate(
-  req: AuthenticatedRequest,
+  req: Request,
   _res: Response,
   next: NextFunction
 ): Promise<void> {
@@ -62,7 +71,7 @@ export async function authenticate(
  * Does not throw if no token, but attaches user if valid token exists
  */
 export async function optionalAuthenticate(
-  req: AuthenticatedRequest,
+  req: Request,
   _res: Response,
   next: NextFunction
 ): Promise<void> {
@@ -98,7 +107,7 @@ export async function optionalAuthenticate(
  * Must be used after authenticate middleware
  */
 export function requireAdmin(
-  req: AuthenticatedRequest,
+  req: Request,
   _res: Response,
   next: NextFunction
 ): void {
@@ -118,7 +127,7 @@ export function requireAdmin(
  */
 export function requireClaim(claimKey: string, claimValue?: unknown) {
   return (
-    req: AuthenticatedRequest,
+    req: Request,
     _res: Response,
     next: NextFunction
   ): void => {
@@ -145,7 +154,7 @@ export function requireClaim(claimKey: string, claimValue?: unknown) {
  */
 export function requireOwnership(userIdField = 'userId') {
   return (
-    req: AuthenticatedRequest,
+    req: Request,
     _res: Response,
     next: NextFunction
   ): void => {

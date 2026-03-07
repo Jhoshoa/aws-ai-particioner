@@ -92,6 +92,7 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, './src/assets'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@app-types': path.resolve(__dirname, './src/types'),
+      '@aws-ai-practitioner/shared-types': path.resolve(__dirname, '../packages/shared-types/src'),
     },
   },
   server: {

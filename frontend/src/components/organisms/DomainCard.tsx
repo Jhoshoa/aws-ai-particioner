@@ -48,7 +48,7 @@ export function DomainCard({
               className="font-display text-lg leading-none"
               style={{ color: domain.color }}
             >
-              {domain.id}
+              {domain.domainNumber}
             </span>
           </div>
 

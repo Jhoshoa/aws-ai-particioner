@@ -12,10 +12,10 @@ export const domainService = {
   /**
    * Get all domains
    */
-  async getAll(): Promise<(Domain & { id: string })[]> {
+  async getAll(): Promise<Domain[]> {
     const snapshot = await db
       .collection(COLLECTION)
-      .orderBy('id', 'asc')
+      .orderBy('order', 'asc')
       .get();
 
     return snapshot.docs.map((doc) => docToObject<Domain>(doc));
@@ -24,7 +24,7 @@ export const domainService = {
   /**
    * Get domain by ID
    */
-  async getById(domainId: string): Promise<Domain & { id: string }> {
+  async getById(domainId: string): Promise<Domain> {
     const doc = await db.collection(COLLECTION).doc(domainId).get();
 
     if (!doc.exists) {
@@ -37,10 +37,8 @@ export const domainService = {
   /**
    * Create a new domain
    */
-  async create(
-    data: Omit<Domain, 'id'>
-  ): Promise<Domain & { id: string }> {
-    const docRef = db.collection(COLLECTION).doc(String(data.id));
+  async create(data: Omit<Domain, 'id'>): Promise<Domain> {
+    const docRef = db.collection(COLLECTION).doc(`domain-${data.domainNumber}`);
 
     await docRef.set({
       ...data,
@@ -55,10 +53,7 @@ export const domainService = {
   /**
    * Update a domain
    */
-  async update(
-    domainId: string,
-    data: Partial<Domain>
-  ): Promise<Domain & { id: string }> {
+  async update(domainId: string, data: Partial<Domain>): Promise<Domain> {
     const docRef = db.collection(COLLECTION).doc(domainId);
     const doc = await docRef.get();
 

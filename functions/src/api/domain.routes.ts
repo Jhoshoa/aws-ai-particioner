@@ -16,8 +16,7 @@ import {
   createdResponse,
   noContentResponse,
 } from '../utils/response.utils';
-import { AuthenticatedRequest } from '../types';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 const router = Router();
 
@@ -65,7 +64,7 @@ router.post(
     validateRequiredString('weeks', 1, 20),
     validateStringArray('topics'),
   ]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const domain = await domainService.create(req.body);
     return createdResponse(res, domain, 'Domain created successfully');
   })
@@ -90,7 +89,7 @@ router.put(
     body('weeks').optional().trim().isLength({ min: 1, max: 20 }),
     body('topics').optional().isArray(),
   ]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const domain = await domainService.update(req.params.id, req.body);
     return successResponse(res, domain, 'Domain updated successfully');
   })
@@ -105,7 +104,7 @@ router.delete(
   authenticate,
   requireAdmin,
   validate([validateId('id')]),
-  asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     await domainService.delete(req.params.id);
     return noContentResponse(res);
   })

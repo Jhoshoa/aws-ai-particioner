@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import domainRoutes from './domain.routes';
 import resourceRoutes from './resource.routes';
+import studyPlanRoutes from './studyPlan.routes';
 import progressRoutes from './progress.routes';
 import userRoutes from './user.routes';
 
@@ -22,6 +23,7 @@ router.get('/health', (_req: Request, res: Response) => {
  */
 router.use('/domains', domainRoutes);
 router.use('/resources', resourceRoutes);
+router.use('/study-plan', studyPlanRoutes);
 router.use('/progress', progressRoutes);
 router.use('/users', userRoutes);
 
