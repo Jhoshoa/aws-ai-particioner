@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-cyber-bg text-cyber-text font-mono antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cyber-card;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-accent-cyan/25 rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-cyan/40;
+  }
+}
+
+@layer components {
+  .glow {
+    box-shadow: 0 0 20px theme('colors.accent.cyan / 15%');
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 20px theme('colors.accent.cyan / 25%');
+  }
+}

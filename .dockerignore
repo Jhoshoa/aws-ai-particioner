@@ -1,0 +1,48 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+frontend/dist
+functions/lib
+packages/*/dist
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+firebase-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage
+
+# Emulator data (mounted as volume instead)
+emulator-data
+.firebase-data
+
+# Documentation
+docs
+*.md
+!README.md
+
+# Claude Code
+.claude
+CLAUDE.md
