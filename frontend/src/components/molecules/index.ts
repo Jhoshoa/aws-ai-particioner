@@ -12,3 +12,6 @@ export type { StatBoxProps } from './StatBox';
 
 export { Alert } from './Alert';
 export type { AlertProps } from './Alert';
+
+export { QuizProgress } from './QuizProgress';
+export type { QuizProgressProps } from './QuizProgress';

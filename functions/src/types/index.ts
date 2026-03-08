@@ -179,3 +179,66 @@ export interface PaginatedResult<T> {
     hasPrev: boolean;
   };
 }
+
+// ============================================
+// Quiz Types
+// ============================================
+
+export interface QuestionOption {
+  id: 'A' | 'B' | 'C' | 'D';
+  text: string;
+}
+
+export interface Question {
+  id: string;
+  domainId: number;
+  topicIndex: number;
+  question: string;
+  options: QuestionOption[];
+  correctAnswer: 'A' | 'B' | 'C' | 'D';
+  explanation: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  tags: string[];
+  order: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+}
+
+export type CreateQuestionInput = Omit<Question, 'id' | 'createdAt' | 'updatedAt'>;
+
+export type QuizMode = 'practice' | 'timed' | 'domain' | 'weak' | 'random';
+
+export interface QuizConfig {
+  mode: QuizMode;
+  domainId?: number;
+  questionCount: number;
+  timeLimit?: number;
+}
+
+export interface QuizAttempt {
+  id: string;
+  userId: string;
+  mode: QuizMode;
+  domainId?: number;
+  questions: QuizQuestionResult[];
+  score: number;
+  totalQuestions: number;
+  correctCount: number;
+  startedAt: Date | string;
+  completedAt?: Date | string;
+  timeSpentSeconds: number;
+}
+
+export interface QuizQuestionResult {
+  questionId: string;
+  selectedAnswer: 'A' | 'B' | 'C' | 'D' | null;
+  correctAnswer: 'A' | 'B' | 'C' | 'D';
+  correct: boolean;
+  timeSpentSeconds: number;
+}
+
+export interface QuizSubmission {
+  questionId: string;
+  selectedAnswer: 'A' | 'B' | 'C' | 'D';
+  timeSpentSeconds: number;
+}

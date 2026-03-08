@@ -27,6 +27,11 @@ const NotFoundPage = lazy(() =>
     default: m.NotFoundPage,
   }))
 );
+const QuizPage = lazy(() =>
+  import('./components/pages/QuizPage').then((m) => ({
+    default: m.QuizPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -70,6 +75,14 @@ function App() {
                 />
 
                 {/* Protected Routes */}
+                <Route
+                  path="/quiz"
+                  element={
+                    <AuthGuard>
+                      <QuizPage />
+                    </AuthGuard>
+                  }
+                />
                 {/*
                 <Route
                   path="/progress"

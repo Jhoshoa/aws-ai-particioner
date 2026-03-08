@@ -4,3 +4,5 @@ export { DomainCard } from './DomainCard';
 export type { DomainCardProps } from './DomainCard';
 export { LoginForm } from './LoginForm';
 export { SignupForm } from './SignupForm';
+export { QuizCard } from './QuizCard';
+export type { QuizCardProps } from './QuizCard';

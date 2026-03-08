@@ -1,0 +1,148 @@
+import { CreateStudyWeekInput } from '../../types';
+
+export const studyPlanData: CreateStudyWeekInput[] = [
+  {
+    week: 1,
+    phase: 'Foundation',
+    domainNumber: 1,
+    daily: [
+      'Read AWS AI/ML overview docs (20 min)',
+      'Watch 1 SageMaker intro video (20 min)',
+      'Take notes in your repo (20 min)',
+    ],
+    milestone: 'Understand the AI/ML landscape',
+    order: 1,
+  },
+  {
+    week: 2,
+    phase: 'Foundation',
+    domainNumber: 1,
+    daily: [
+      'Study ML algorithms & metrics (20 min)',
+      'AWS Free Tier: explore SageMaker Studio (20 min)',
+      'Practice 10 questions on Domain 1 (20 min)',
+    ],
+    milestone: 'Score 70%+ on Domain 1 mock',
+    order: 2,
+  },
+  {
+    week: 3,
+    phase: 'GenAI Core',
+    domainNumber: 2,
+    daily: [
+      'Study LLM concepts & transformers (20 min)',
+      'Explore Amazon Bedrock console (20 min)',
+      'Take notes + 10 practice Qs (20 min)',
+    ],
+    milestone: 'Understand GenAI fundamentals',
+    order: 3,
+  },
+  {
+    week: 4,
+    phase: 'GenAI Core',
+    domainNumber: 2,
+    daily: [
+      'Deep dive: prompt engineering (20 min)',
+      'Hands-on: Amazon Q / PartyRock (20 min)',
+      'Practice 15 questions Domain 2 (20 min)',
+    ],
+    milestone: 'Score 70%+ on Domain 2 mock',
+    order: 4,
+  },
+  {
+    week: 5,
+    phase: 'Applications',
+    domainNumber: 3,
+    daily: [
+      'Study RAG architecture (20 min)',
+      'Explore Bedrock Knowledge Bases (20 min)',
+      'Diagram RAG flow in notes (20 min)',
+    ],
+    milestone: 'Explain RAG end-to-end',
+    order: 5,
+  },
+  {
+    week: 6,
+    phase: 'Applications',
+    domainNumber: 3,
+    daily: [
+      'Study Bedrock Agents & Guardrails (20 min)',
+      'Read fine-tuning vs RAG comparison (20 min)',
+      '20 practice Qs Domain 3 (20 min)',
+    ],
+    milestone: 'Master Domain 3 concepts',
+    order: 6,
+  },
+  {
+    week: 7,
+    phase: 'Applications',
+    domainNumber: 3,
+    daily: [
+      'Review model selection criteria (20 min)',
+      'Cost & latency optimization review (20 min)',
+      'Full Domain 3 mock test (20 min)',
+    ],
+    milestone: 'Score 75%+ on Domain 3 mock',
+    order: 7,
+  },
+  {
+    week: 8,
+    phase: 'Responsible AI',
+    domainNumber: 4,
+    daily: [
+      'Study responsible AI principles (20 min)',
+      'Review SageMaker Clarify docs (20 min)',
+      '10 practice Qs + notes (20 min)',
+    ],
+    milestone: 'Know all AWS responsible AI tools',
+    order: 8,
+  },
+  {
+    week: 9,
+    phase: 'Security',
+    domainNumber: 5,
+    daily: [
+      'Study IAM, encryption for AI (20 min)',
+      'Review compliance + Bedrock privacy (20 min)',
+      '15 practice Qs Domain 5 (20 min)',
+    ],
+    milestone: 'Score 70%+ on Domains 4+5',
+    order: 9,
+  },
+  {
+    week: 10,
+    phase: 'Full Review',
+    domainNumber: null,
+    daily: [
+      'Full 65-question mock exam (30 min)',
+      'Review wrong answers deeply (20 min)',
+      'Re-read weak domain notes (10 min)',
+    ],
+    milestone: 'Score 750+ on full mock',
+    order: 10,
+  },
+  {
+    week: 11,
+    phase: 'Exam Prep',
+    domainNumber: null,
+    daily: [
+      'Second full mock exam (30 min)',
+      'Flashcard review (15 min)',
+      'AWS whitepapers skim (15 min)',
+    ],
+    milestone: 'Consistent 800+ score',
+    order: 11,
+  },
+  {
+    week: 12,
+    phase: 'Final Push',
+    domainNumber: null,
+    daily: [
+      'Light review of all domain summaries (30 min)',
+      'Rest + confidence building (15 min)',
+      'Schedule & take the exam!',
+    ],
+    milestone: 'PASS AIF-C01!',
+    order: 12,
+  },
+];

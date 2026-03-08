@@ -141,3 +141,78 @@ export interface DomainProgress {
   completedTopics: number;
   percentComplete: number;
 }
+
+// ============================================
+// Quiz Types
+// ============================================
+
+export interface QuestionOption {
+  id: 'A' | 'B' | 'C' | 'D';
+  text: string;
+}
+
+export interface Question {
+  id: string;
+  domainId: number;
+  topicIndex: number;
+  question: string;
+  options: QuestionOption[];
+  difficulty: 'easy' | 'medium' | 'hard';
+  tags: string[];
+  order: number;
+}
+
+export interface QuestionWithAnswer extends Question {
+  correctAnswer: 'A' | 'B' | 'C' | 'D';
+  explanation: string;
+}
+
+export type QuizMode = 'practice' | 'timed' | 'domain' | 'weak' | 'random';
+
+export interface QuizConfig {
+  mode: QuizMode;
+  domainId?: number;
+  questionCount: number;
+  timeLimit?: number;
+}
+
+export interface QuizStartResponse {
+  attemptId: string;
+  questions: Question[];
+}
+
+export interface AnswerSubmitResponse {
+  correct: boolean;
+  correctAnswer: 'A' | 'B' | 'C' | 'D';
+  explanation: string;
+}
+
+export interface QuizQuestionResult {
+  questionId: string;
+  selectedAnswer: 'A' | 'B' | 'C' | 'D' | null;
+  correctAnswer: 'A' | 'B' | 'C' | 'D';
+  correct: boolean;
+  timeSpentSeconds: number;
+}
+
+export interface QuizAttempt {
+  id: string;
+  userId: string;
+  mode: QuizMode;
+  domainId?: number;
+  questions: QuizQuestionResult[];
+  score: number;
+  totalQuestions: number;
+  correctCount: number;
+  startedAt: string;
+  completedAt?: string;
+  timeSpentSeconds: number;
+}
+
+export interface QuizStats {
+  totalAttempts: number;
+  averageScore: number;
+  totalQuestionsAnswered: number;
+  correctAnswers: number;
+  domainStats: Record<number, { attempts: number; averageScore: number }>;
+}

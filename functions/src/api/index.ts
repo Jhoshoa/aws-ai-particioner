@@ -4,6 +4,7 @@ import resourceRoutes from './resource.routes';
 import studyPlanRoutes from './studyPlan.routes';
 import progressRoutes from './progress.routes';
 import userRoutes from './user.routes';
+import quizRoutes from './quiz.routes';
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use('/resources', resourceRoutes);
 router.use('/study-plan', studyPlanRoutes);
 router.use('/progress', progressRoutes);
 router.use('/users', userRoutes);
+router.use('/quiz', quizRoutes);
 
 export default router;

@@ -18,3 +18,9 @@ export type { ProgressBarProps } from './ProgressBar';
 
 export { Icon } from './Icon';
 export type { IconProps } from './Icon';
+
+export { QuizOption } from './QuizOption';
+export type { QuizOptionProps } from './QuizOption';
+
+export { QuizTimer } from './QuizTimer';
+export type { QuizTimerProps } from './QuizTimer';
