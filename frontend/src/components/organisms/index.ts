@@ -15,3 +15,9 @@ export type { DomainProgressPanelProps } from './DomainProgressPanel';
 
 export { AchievementsList } from './AchievementsList';
 export type { AchievementsListProps } from './AchievementsList';
+
+export { StreakCalendar } from './StreakCalendar';
+export type { StreakCalendarProps } from './StreakCalendar';
+
+export { StreakCard } from './StreakCard';
+export type { StreakCardProps } from './StreakCard';

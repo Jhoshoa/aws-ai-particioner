@@ -39,3 +39,6 @@ export type { TopicCheckboxProps } from './TopicCheckbox';
 
 export { AchievementBadge } from './AchievementBadge';
 export type { AchievementBadgeProps } from './AchievementBadge';
+
+export { StreakCounter } from './StreakCounter';
+export type { StreakCounterProps } from './StreakCounter';

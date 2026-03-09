@@ -405,3 +405,20 @@ export interface AchievementSummary {
   totalPoints: number;
   recentUnlocks: AchievementWithStatus[];
 }
+
+// ============================================
+// Streak Types
+// ============================================
+
+export interface StreakInfo {
+  currentStreak: number;
+  longestStreak: number;
+  lastStudyDate: string | null;
+  isActiveToday: boolean;
+  studyDates: string[]; // Last 90 days YYYY-MM-DD
+}
+
+export interface StreakCalendarData {
+  date: string;
+  count: number; // Activity count for that day
+}

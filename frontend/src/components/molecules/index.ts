@@ -30,3 +30,6 @@ export type { StatsGridProps } from './StatsGrid';
 
 export { AchievementCard } from './AchievementCard';
 export type { AchievementCardProps } from './AchievementCard';
+
+export { StreakDisplay } from './StreakDisplay';
+export type { StreakDisplayProps } from './StreakDisplay';
