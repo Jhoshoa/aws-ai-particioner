@@ -36,3 +36,6 @@ export type { ProgressRingProps } from './ProgressRing';
 
 export { TopicCheckbox } from './TopicCheckbox';
 export type { TopicCheckboxProps } from './TopicCheckbox';
+
+export { AchievementBadge } from './AchievementBadge';
+export type { AchievementBadgeProps } from './AchievementBadge';

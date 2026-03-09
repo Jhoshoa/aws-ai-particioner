@@ -6,6 +6,7 @@ import progressRoutes from './progress.routes';
 import userRoutes from './user.routes';
 import quizRoutes from './quiz.routes';
 import notesRoutes from './notes.routes';
+import achievementRoutes from './achievement.routes';
 
 const router = Router();
 
@@ -30,5 +31,6 @@ router.use('/progress', progressRoutes);
 router.use('/users', userRoutes);
 router.use('/quiz', quizRoutes);
 router.use('/notes', notesRoutes);
+router.use('/achievements', achievementRoutes);
 
 export default router;

@@ -12,3 +12,6 @@ export type { NoteEditorProps } from './NoteEditor';
 
 export { DomainProgressPanel } from './DomainProgressPanel';
 export type { DomainProgressPanelProps } from './DomainProgressPanel';
+
+export { AchievementsList } from './AchievementsList';
+export type { AchievementsListProps } from './AchievementsList';

@@ -6,3 +6,4 @@ export { NotFoundPage } from './NotFoundPage';
 export { QuizPage } from './QuizPage';
 export { NotesPage } from './NotesPage';
 export { ProgressPage } from './ProgressPage';
+export { AchievementsPage } from './AchievementsPage';

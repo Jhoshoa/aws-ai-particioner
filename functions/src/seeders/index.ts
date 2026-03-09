@@ -7,6 +7,7 @@ import {
   resourcesData,
   studyPlanData,
   questionsData,
+  achievementsData,
 } from './data';
 
 // ============================================
@@ -32,6 +33,7 @@ const COLLECTIONS = {
   RESOURCES: 'resources',
   STUDY_PLANS: 'studyPlans',
   QUESTIONS: 'questions',
+  ACHIEVEMENTS: 'achievements',
 } as const;
 
 // ============================================
@@ -106,6 +108,22 @@ async function seedQuestions() {
   console.log(`  ✓ Seeded ${questionsData.length} questions`);
 }
 
+async function seedAchievements() {
+  console.log('Seeding achievements...');
+  const batch = db.batch();
+
+  for (const achievement of achievementsData) {
+    const ref = db.collection(COLLECTIONS.ACHIEVEMENTS).doc(achievement.id);
+    batch.set(ref, {
+      ...achievement,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  }
+
+  await batch.commit();
+  console.log(`  ✓ Seeded ${achievementsData.length} achievements`);
+}
+
 // ============================================
 // Utility Functions
 // ============================================
@@ -145,6 +163,7 @@ async function main() {
     await seedResources();
     await seedStudyPlan();
     await seedQuestions();
+    await seedAchievements();
 
     console.log('\n✅ Seeding completed successfully!\n');
     console.log('Summary:');
@@ -152,6 +171,7 @@ async function main() {
     console.log(`  • ${resourcesData.length} resources`);
     console.log(`  • ${studyPlanData.length} study plan weeks`);
     console.log(`  • ${questionsData.length} questions`);
+    console.log(`  • ${achievementsData.length} achievements`);
     console.log('');
 
     process.exit(0);

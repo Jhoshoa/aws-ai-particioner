@@ -27,3 +27,6 @@ export type { ProgressCardProps } from './ProgressCard';
 
 export { StatsGrid } from './StatsGrid';
 export type { StatsGridProps } from './StatsGrid';
+
+export { AchievementCard } from './AchievementCard';
+export type { AchievementCardProps } from './AchievementCard';

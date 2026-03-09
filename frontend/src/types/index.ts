@@ -302,3 +302,60 @@ export interface QuizStats {
   correctAnswers: number;
   domainStats: Record<number, { attempts: number; averageScore: number }>;
 }
+
+// ============================================
+// Achievement Types
+// ============================================
+
+export type AchievementCategory =
+  | 'getting_started'
+  | 'domain_mastery'
+  | 'streaks'
+  | 'quiz_performance'
+  | 'study_time'
+  | 'mock_exams'
+  | 'completion';
+
+export type AchievementConditionType =
+  | 'topics_completed'
+  | 'quizzes_completed'
+  | 'notes_created'
+  | 'domain_completed'
+  | 'streak_days'
+  | 'perfect_quiz'
+  | 'correct_answers'
+  | 'study_minutes'
+  | 'mock_exams_completed'
+  | 'mock_score'
+  | 'total_progress';
+
+export interface AchievementCondition {
+  type: AchievementConditionType;
+  value: number;
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  category: AchievementCategory;
+  points: number;
+  condition: AchievementCondition;
+  order: number;
+  createdAt?: string;
+}
+
+export interface AchievementWithStatus extends Achievement {
+  unlocked: boolean;
+  unlockedAt?: string;
+  progress?: number;
+  target?: number;
+}
+
+export interface AchievementSummary {
+  totalAchievements: number;
+  unlockedCount: number;
+  totalPoints: number;
+  recentUnlocks: AchievementWithStatus[];
+}

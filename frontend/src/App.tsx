@@ -42,6 +42,11 @@ const ProgressPage = lazy(() =>
     default: m.ProgressPage,
   }))
 );
+const AchievementsPage = lazy(() =>
+  import('./components/pages/AchievementsPage').then((m) => ({
+    default: m.AchievementsPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -106,6 +111,14 @@ function App() {
                   element={
                     <AuthGuard>
                       <ProgressPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/achievements"
+                  element={
+                    <AuthGuard>
+                      <AchievementsPage />
                     </AuthGuard>
                   }
                 />
