@@ -5,3 +5,4 @@ export { AdminDashboardPage } from './AdminDashboardPage';
 export { NotFoundPage } from './NotFoundPage';
 export { QuizPage } from './QuizPage';
 export { NotesPage } from './NotesPage';
+export { ProgressPage } from './ProgressPage';

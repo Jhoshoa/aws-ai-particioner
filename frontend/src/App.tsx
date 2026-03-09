@@ -37,6 +37,11 @@ const NotesPage = lazy(() =>
     default: m.NotesPage,
   }))
 );
+const ProgressPage = lazy(() =>
+  import('./components/pages/ProgressPage').then((m) => ({
+    default: m.ProgressPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -96,7 +101,6 @@ function App() {
                     </AuthGuard>
                   }
                 />
-                {/*
                 <Route
                   path="/progress"
                   element={
@@ -105,7 +109,6 @@ function App() {
                     </AuthGuard>
                   }
                 />
-                */}
 
                 {/* Admin Routes */}
                 <Route

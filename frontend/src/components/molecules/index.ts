@@ -18,3 +18,12 @@ export type { QuizProgressProps } from './QuizProgress';
 
 export { NoteCard } from './NoteCard';
 export type { NoteCardProps } from './NoteCard';
+
+export { ProgressStatBox } from './ProgressStatBox';
+export type { ProgressStatBoxProps } from './ProgressStatBox';
+
+export { ProgressCard } from './ProgressCard';
+export type { ProgressCardProps } from './ProgressCard';
+
+export { StatsGrid } from './StatsGrid';
+export type { StatsGridProps } from './StatsGrid';

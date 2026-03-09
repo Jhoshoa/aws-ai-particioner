@@ -30,3 +30,9 @@ export type { MarkdownPreviewProps } from './MarkdownPreview';
 
 export { MarkdownEditor } from './MarkdownEditor';
 export type { MarkdownEditorProps } from './MarkdownEditor';
+
+export { ProgressRing } from './ProgressRing';
+export type { ProgressRingProps } from './ProgressRing';
+
+export { TopicCheckbox } from './TopicCheckbox';
+export type { TopicCheckboxProps } from './TopicCheckbox';

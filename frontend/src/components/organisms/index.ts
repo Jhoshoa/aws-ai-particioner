@@ -9,3 +9,6 @@ export type { QuizCardProps } from './QuizCard';
 
 export { NoteEditor } from './NoteEditor';
 export type { NoteEditorProps } from './NoteEditor';
+
+export { DomainProgressPanel } from './DomainProgressPanel';
+export type { DomainProgressPanelProps } from './DomainProgressPanel';

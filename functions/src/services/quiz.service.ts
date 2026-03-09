@@ -82,7 +82,7 @@ export const quizService = {
 
     // Remove answers from response
     const sanitizedQuestions = questions.map(
-      ({ correctAnswer, explanation, ...rest }) => rest
+      ({ correctAnswer: _correctAnswer, explanation: _explanation, ...rest }) => rest
     );
 
     return {

@@ -33,7 +33,7 @@ router.get(
 
     // Remove answers for public access
     const sanitized = questions.map(
-      ({ correctAnswer, explanation, ...rest }) => rest
+      ({ correctAnswer: _correctAnswer, explanation: _explanation, ...rest }) => rest
     );
     return successResponse(res, sanitized, 'Questions retrieved successfully');
   })

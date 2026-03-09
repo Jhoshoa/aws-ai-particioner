@@ -132,6 +132,76 @@ export interface DomainProgress {
 }
 
 // ============================================
+// Enhanced Progress Types (User Stats & Tracking)
+// ============================================
+
+export interface UserStats {
+  totalStudyMinutes: number;
+  totalTopicsCompleted: number;
+  currentStreakDays: number;
+  longestStreakDays: number;
+  lastStudyDate: Date | string | null;
+  questionsAnswered: number;
+  correctAnswers: number;
+  quizzesTaken: number;
+}
+
+export interface DomainProgressStats {
+  completed: number;
+  total: number;
+}
+
+export interface RecentActivity {
+  type: 'topic_completed' | 'quiz_taken' | 'session_completed';
+  description: string;
+  timestamp: Date | string;
+  domainId?: number;
+}
+
+export interface EnhancedProgressSummary {
+  stats: UserStats;
+  domainProgress: Record<number, DomainProgressStats>;
+  totalTopics: number;
+  completedTopics: number;
+  percentComplete: number;
+  recentActivity: RecentActivity[];
+}
+
+export interface TopicProgress {
+  index: number;
+  name: string;
+  completed: boolean;
+  completedAt?: Date | string;
+  notes?: string;
+}
+
+export interface DomainProgressDetail {
+  domainId: number;
+  domainName: string;
+  color: string;
+  topics: TopicProgress[];
+  completedCount: number;
+  totalCount: number;
+  percentComplete: number;
+}
+
+export interface UpdateTopicProgressInput {
+  domainId: number;
+  topicIndex: number;
+  completed: boolean;
+  studyTimeMinutes?: number;
+  notes?: string;
+}
+
+export interface BatchUpdateProgressInput {
+  updates: UpdateTopicProgressInput[];
+}
+
+export interface AddStudyTimeInput {
+  minutes: number;
+}
+
+// ============================================
 // Auth Types
 // ============================================
 
