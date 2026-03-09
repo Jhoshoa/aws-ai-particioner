@@ -422,3 +422,53 @@ export interface StreakCalendarData {
   date: string;
   count: number; // Activity count for that day
 }
+
+// ============================================
+// Study Session Types
+// ============================================
+
+export type SessionStatus = 'active' | 'paused' | 'completed' | 'abandoned';
+
+export interface StudySession {
+  id: string;
+  userId: string;
+  domainId: number;
+  topicIndex: number;
+  startedAt: Date | string;
+  endedAt?: Date | string;
+  durationMinutes: number;
+  pausedMinutes: number;
+  pomodorosCompleted: number;
+  status: SessionStatus;
+  notes?: string;
+}
+
+export interface CreateSessionInput {
+  domainId: number;
+  topicIndex: number;
+}
+
+export interface UpdateSessionInput {
+  durationMinutes?: number;
+  pausedMinutes?: number;
+  pomodorosCompleted?: number;
+  status?: 'active' | 'paused';
+  notes?: string;
+}
+
+export interface EndSessionInput {
+  durationMinutes: number;
+  pausedMinutes?: number;
+  pomodorosCompleted?: number;
+  status?: 'completed' | 'abandoned';
+  notes?: string;
+}
+
+export interface SessionStats {
+  totalSessions: number;
+  totalMinutes: number;
+  totalPomodoros: number;
+  averageSessionLength: number;
+  sessionsThisWeek: number;
+  minutesThisWeek: number;
+}

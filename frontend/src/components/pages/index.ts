@@ -7,3 +7,4 @@ export { QuizPage } from './QuizPage';
 export { NotesPage } from './NotesPage';
 export { ProgressPage } from './ProgressPage';
 export { AchievementsPage } from './AchievementsPage';
+export { StudySessionPage } from './StudySessionPage';

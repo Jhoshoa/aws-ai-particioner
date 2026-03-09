@@ -21,3 +21,9 @@ export type { StreakCalendarProps } from './StreakCalendar';
 
 export { StreakCard } from './StreakCard';
 export type { StreakCardProps } from './StreakCard';
+
+export { PomodoroTimer } from './PomodoroTimer';
+export type { PomodoroTimerProps } from './PomodoroTimer';
+
+export { SessionHistory } from './SessionHistory';
+export type { SessionHistoryProps } from './SessionHistory';

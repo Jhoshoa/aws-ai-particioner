@@ -47,6 +47,11 @@ const AchievementsPage = lazy(() =>
     default: m.AchievementsPage,
   }))
 );
+const StudySessionPage = lazy(() =>
+  import('./components/pages/StudySessionPage').then((m) => ({
+    default: m.StudySessionPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -119,6 +124,14 @@ function App() {
                   element={
                     <AuthGuard>
                       <AchievementsPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/study-session"
+                  element={
+                    <AuthGuard>
+                      <StudySessionPage />
                     </AuthGuard>
                   }
                 />

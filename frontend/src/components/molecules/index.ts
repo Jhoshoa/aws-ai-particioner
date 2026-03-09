@@ -33,3 +33,9 @@ export type { AchievementCardProps } from './AchievementCard';
 
 export { StreakDisplay } from './StreakDisplay';
 export type { StreakDisplayProps } from './StreakDisplay';
+
+export { SessionControls } from './SessionControls';
+export type { SessionControlsProps } from './SessionControls';
+
+export { SessionStatsBox } from './SessionStatsBox';
+export type { SessionStatsBoxProps } from './SessionStatsBox';

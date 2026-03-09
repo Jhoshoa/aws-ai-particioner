@@ -42,3 +42,6 @@ export type { AchievementBadgeProps } from './AchievementBadge';
 
 export { StreakCounter } from './StreakCounter';
 export type { StreakCounterProps } from './StreakCounter';
+
+export { TimerDisplay } from './TimerDisplay';
+export type { TimerDisplayProps } from './TimerDisplay';

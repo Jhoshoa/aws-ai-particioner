@@ -8,6 +8,7 @@ import quizRoutes from './quiz.routes';
 import notesRoutes from './notes.routes';
 import achievementRoutes from './achievement.routes';
 import streakRoutes from './streak.routes';
+import sessionRoutes from './session.routes';
 
 const router = Router();
 
@@ -34,5 +35,6 @@ router.use('/quiz', quizRoutes);
 router.use('/notes', notesRoutes);
 router.use('/achievements', achievementRoutes);
 router.use('/streak', streakRoutes);
+router.use('/sessions', sessionRoutes);
 
 export default router;
