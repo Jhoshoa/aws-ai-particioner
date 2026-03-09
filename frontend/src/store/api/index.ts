@@ -5,3 +5,4 @@ export * from './studyPlanApi';
 export * from './progressApi';
 export * from './userApi';
 export * from './quizApi';
+export * from './notesApi';

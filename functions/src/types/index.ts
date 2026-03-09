@@ -78,14 +78,42 @@ export type ResourceType = 'FREE' | 'PAID' | 'PRACTICE' | 'OFFICIAL';
 
 export type CreateResourceInput = Omit<Resource, 'id' | 'createdAt' | 'updatedAt'>;
 
+// ============================================
+// Notes Types
+// ============================================
+
 export interface Note {
   id: string;
   userId: string;
   domainId: number;
-  topicId: string;
+  topicIndex: number;
+  title: string;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  tags: string[];
+  wordCount: number;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+}
+
+export interface CreateNoteInput {
+  domainId: number;
+  topicIndex: number;
+  title: string;
+  content: string;
+  tags?: string[];
+}
+
+export interface UpdateNoteInput {
+  title?: string;
+  content?: string;
+  tags?: string[];
+}
+
+export interface NotesSummary {
+  totalNotes: number;
+  totalWords: number;
+  notesByDomain: Record<number, number>;
+  recentNotes: Note[];
 }
 
 export interface ProgressSummary {

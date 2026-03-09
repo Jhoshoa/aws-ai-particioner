@@ -15,3 +15,6 @@ export type { AlertProps } from './Alert';
 
 export { QuizProgress } from './QuizProgress';
 export type { QuizProgressProps } from './QuizProgress';
+
+export { NoteCard } from './NoteCard';
+export type { NoteCardProps } from './NoteCard';

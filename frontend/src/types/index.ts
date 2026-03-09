@@ -90,10 +90,34 @@ export interface Note {
   id: string;
   userId: string;
   domainId: number;
-  topicId: string;
+  topicIndex: number;
+  title: string;
   content: string;
+  tags: string[];
+  wordCount: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CreateNoteInput {
+  domainId: number;
+  topicIndex: number;
+  title: string;
+  content: string;
+  tags?: string[];
+}
+
+export interface UpdateNoteInput {
+  title?: string;
+  content?: string;
+  tags?: string[];
+}
+
+export interface NotesSummary {
+  totalNotes: number;
+  totalWords: number;
+  notesByDomain: Record<number, number>;
+  recentNotes: Note[];
 }
 
 // ============================================

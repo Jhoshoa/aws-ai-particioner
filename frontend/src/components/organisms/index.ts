@@ -6,3 +6,6 @@ export { LoginForm } from './LoginForm';
 export { SignupForm } from './SignupForm';
 export { QuizCard } from './QuizCard';
 export type { QuizCardProps } from './QuizCard';
+
+export { NoteEditor } from './NoteEditor';
+export type { NoteEditorProps } from './NoteEditor';

@@ -32,6 +32,11 @@ const QuizPage = lazy(() =>
     default: m.QuizPage,
   }))
 );
+const NotesPage = lazy(() =>
+  import('./components/pages/NotesPage').then((m) => ({
+    default: m.NotesPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -80,6 +85,14 @@ function App() {
                   element={
                     <AuthGuard>
                       <QuizPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/notes"
+                  element={
+                    <AuthGuard>
+                      <NotesPage />
                     </AuthGuard>
                   }
                 />

@@ -24,3 +24,9 @@ export type { QuizOptionProps } from './QuizOption';
 
 export { QuizTimer } from './QuizTimer';
 export type { QuizTimerProps } from './QuizTimer';
+
+export { MarkdownPreview } from './MarkdownPreview';
+export type { MarkdownPreviewProps } from './MarkdownPreview';
+
+export { MarkdownEditor } from './MarkdownEditor';
+export type { MarkdownEditorProps } from './MarkdownEditor';
