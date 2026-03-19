@@ -426,3 +426,66 @@ export interface SessionStats {
   sessionsThisWeek: number;
   minutesThisWeek: number;
 }
+
+// ============================================
+// Mock Exam Types
+// ============================================
+
+export type MockExamStatus = 'in_progress' | 'completed' | 'abandoned';
+
+export interface MockExamQuestion {
+  questionId: string;
+  domainId: number;
+  selectedAnswer?: 'A' | 'B' | 'C' | 'D';
+  flagged: boolean;
+  timeSpentSeconds: number;
+}
+
+export interface DomainScore {
+  correct: number;
+  total: number;
+  percentage: number;
+}
+
+export interface MockExamResults {
+  totalQuestions: number;
+  answeredCount: number;
+  correctCount: number;
+  score: number; // 100-1000 AWS-style scale
+  passed: boolean;
+  passingScore: number;
+  domainScores: Record<number, DomainScore>;
+  improvement?: number;
+}
+
+export interface MockExam {
+  id: string;
+  userId: string;
+  status: MockExamStatus;
+  startedAt: string;
+  completedAt?: string;
+  timeLimitMinutes: number;
+  timeSpentMinutes: number;
+  questions: MockExamQuestion[];
+  results?: MockExamResults;
+}
+
+export interface MockExamSummary {
+  examId: string;
+  date: string;
+  score: number;
+  passed: boolean;
+  timeSpentMinutes: number;
+}
+
+export interface MockExamStats {
+  totalExams: number;
+  averageScore: number;
+  bestScore: number;
+  passRate: number;
+}
+
+export interface MockExamWithQuestions {
+  exam: MockExam;
+  questions: Question[];
+}

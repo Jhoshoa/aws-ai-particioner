@@ -8,3 +8,4 @@ export { notesService } from './notes.service';
 export { achievementService } from './achievement.service';
 export { streakService } from './streak.service';
 export { sessionService } from './session.service';
+export { mockExamService } from './mockExam.service';

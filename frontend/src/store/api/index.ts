@@ -9,3 +9,4 @@ export * from './notesApi';
 export * from './achievementApi';
 export * from './streakApi';
 export * from './sessionApi';
+export * from './mockExamApi';

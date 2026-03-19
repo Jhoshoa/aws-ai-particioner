@@ -8,3 +8,4 @@ export { NotesPage } from './NotesPage';
 export { ProgressPage } from './ProgressPage';
 export { AchievementsPage } from './AchievementsPage';
 export { StudySessionPage } from './StudySessionPage';
+export { MockExamPage } from './MockExamPage';

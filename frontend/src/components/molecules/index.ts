@@ -39,3 +39,9 @@ export type { SessionControlsProps } from './SessionControls';
 
 export { SessionStatsBox } from './SessionStatsBox';
 export type { SessionStatsBoxProps } from './SessionStatsBox';
+
+export { QuestionNavigator } from './QuestionNavigator';
+export type { QuestionNavigatorProps } from './QuestionNavigator';
+
+export { ExamScoreCard } from './ExamScoreCard';
+export type { ExamScoreCardProps } from './ExamScoreCard';

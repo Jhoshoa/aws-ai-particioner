@@ -27,3 +27,9 @@ export type { PomodoroTimerProps } from './PomodoroTimer';
 
 export { SessionHistory } from './SessionHistory';
 export type { SessionHistoryProps } from './SessionHistory';
+
+export { MockExamQuestion } from './MockExamQuestion';
+export type { MockExamQuestionProps } from './MockExamQuestion';
+
+export { MockExamResults } from './MockExamResults';
+export type { MockExamResultsProps } from './MockExamResults';

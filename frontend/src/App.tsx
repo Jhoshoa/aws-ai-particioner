@@ -52,6 +52,11 @@ const StudySessionPage = lazy(() =>
     default: m.StudySessionPage,
   }))
 );
+const MockExamPage = lazy(() =>
+  import('./components/pages/MockExamPage').then((m) => ({
+    default: m.MockExamPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -132,6 +137,14 @@ function App() {
                   element={
                     <AuthGuard>
                       <StudySessionPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/mock-exam"
+                  element={
+                    <AuthGuard>
+                      <MockExamPage />
                     </AuthGuard>
                   }
                 />

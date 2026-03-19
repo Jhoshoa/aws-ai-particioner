@@ -45,3 +45,6 @@ export type { StreakCounterProps } from './StreakCounter';
 
 export { TimerDisplay } from './TimerDisplay';
 export type { TimerDisplayProps } from './TimerDisplay';
+
+export { ExamTimer } from './ExamTimer';
+export type { ExamTimerProps } from './ExamTimer';
