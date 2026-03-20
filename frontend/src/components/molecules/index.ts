@@ -45,3 +45,6 @@ export type { QuestionNavigatorProps } from './QuestionNavigator';
 
 export { ExamScoreCard } from './ExamScoreCard';
 export type { ExamScoreCardProps } from './ExamScoreCard';
+
+export { ReviewStatsCard } from './ReviewStatsCard';
+export type { ReviewStatsCardProps } from './ReviewStatsCard';

@@ -57,6 +57,11 @@ const MockExamPage = lazy(() =>
     default: m.MockExamPage,
   }))
 );
+const SpacedRepetitionPage = lazy(() =>
+  import('./components/pages/SpacedRepetitionPage').then((m) => ({
+    default: m.SpacedRepetitionPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -145,6 +150,14 @@ function App() {
                   element={
                     <AuthGuard>
                       <MockExamPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/review"
+                  element={
+                    <AuthGuard>
+                      <SpacedRepetitionPage />
                     </AuthGuard>
                   }
                 />

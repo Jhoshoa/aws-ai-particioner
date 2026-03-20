@@ -10,6 +10,7 @@ import achievementRoutes from './achievement.routes';
 import streakRoutes from './streak.routes';
 import sessionRoutes from './session.routes';
 import mockExamRoutes from './mockExam.routes';
+import reviewRoutes from './review.routes';
 
 const router = Router();
 
@@ -38,5 +39,6 @@ router.use('/achievements', achievementRoutes);
 router.use('/streak', streakRoutes);
 router.use('/sessions', sessionRoutes);
 router.use('/mock-exams', mockExamRoutes);
+router.use('/review', reviewRoutes);
 
 export default router;

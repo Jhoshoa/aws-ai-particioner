@@ -489,3 +489,61 @@ export interface MockExamWithQuestions {
   exam: MockExam;
   questions: Question[];
 }
+
+// ============================================
+// Spaced Repetition Types
+// ============================================
+
+export interface QuestionProgress {
+  id: string;
+  userId: string;
+  questionId: string;
+  domainId: number;
+
+  // SM-2 Algorithm data
+  easeFactor: number;
+  interval: number;
+  repetitions: number;
+  nextReviewDate: string;
+  lastReviewDate: string;
+
+  // Stats
+  totalAttempts: number;
+  correctAttempts: number;
+  averageQuality: number;
+
+  // Status
+  mastered: boolean;
+}
+
+export interface ReviewQueueItem {
+  questionId: string;
+  domainId: number;
+  question: string;
+  options: QuestionOption[];
+  dueDate: string;
+  overdueDays: number;
+}
+
+export interface ReviewSubmission {
+  questionId: string;
+  selectedAnswer: 'A' | 'B' | 'C' | 'D';
+  quality: 0 | 1 | 2 | 3 | 4 | 5;
+  timeSpentSeconds: number;
+}
+
+export interface ReviewStats {
+  totalCards: number;
+  dueToday: number;
+  overdue: number;
+  masteredCount: number;
+  averageEaseFactor: number;
+  nextReviewDate: string | null;
+}
+
+export interface ReviewResult {
+  progress: QuestionProgress;
+  correct: boolean;
+  correctAnswer: string;
+  explanation: string;
+}

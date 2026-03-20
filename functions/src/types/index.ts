@@ -537,3 +537,54 @@ export interface ToggleMockExamFlagInput {
 export interface SubmitMockExamInput {
   timeSpent: number;
 }
+
+// ============================================
+// Spaced Repetition Types
+// ============================================
+
+export interface QuestionProgress {
+  id: string;
+  userId: string;
+  questionId: string;
+  domainId: number;
+
+  // SM-2 Algorithm data
+  easeFactor: number;      // Default: 2.5, min: 1.3
+  interval: number;        // Days until next review
+  repetitions: number;     // Successful recalls in a row
+  nextReviewDate: Date | string;
+  lastReviewDate: Date | string;
+
+  // Stats
+  totalAttempts: number;
+  correctAttempts: number;
+  averageQuality: number;
+
+  // Status
+  mastered: boolean;       // 5+ correct in a row with EF > 2.5
+}
+
+export interface ReviewQueueItem {
+  questionId: string;
+  domainId: number;
+  question: string;
+  options: QuestionOption[];
+  dueDate: string;
+  overdueDays: number;
+}
+
+export interface ReviewSubmission {
+  questionId: string;
+  selectedAnswer: 'A' | 'B' | 'C' | 'D';
+  quality: 0 | 1 | 2 | 3 | 4 | 5; // SM-2 quality rating
+  timeSpentSeconds: number;
+}
+
+export interface ReviewStats {
+  totalCards: number;
+  dueToday: number;
+  overdue: number;
+  masteredCount: number;
+  averageEaseFactor: number;
+  nextReviewDate: string | null;
+}

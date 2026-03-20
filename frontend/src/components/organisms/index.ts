@@ -33,3 +33,6 @@ export type { MockExamQuestionProps } from './MockExamQuestion';
 
 export { MockExamResults } from './MockExamResults';
 export type { MockExamResultsProps } from './MockExamResults';
+
+export { ReviewCard } from './ReviewCard';
+export type { ReviewCardProps } from './ReviewCard';
