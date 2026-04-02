@@ -36,3 +36,6 @@ export type { MockExamResultsProps } from './MockExamResults';
 
 export { ReviewCard } from './ReviewCard';
 export type { ReviewCardProps } from './ReviewCard';
+
+export { NotificationSettingsForm } from './NotificationSettingsForm';
+export type { NotificationSettingsFormProps } from './NotificationSettingsForm';

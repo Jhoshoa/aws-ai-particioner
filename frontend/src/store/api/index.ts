@@ -11,3 +11,4 @@ export * from './streakApi';
 export * from './sessionApi';
 export * from './mockExamApi';
 export * from './reviewApi';
+export * from './settingsApi';

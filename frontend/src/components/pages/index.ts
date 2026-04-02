@@ -10,3 +10,4 @@ export { AchievementsPage } from './AchievementsPage';
 export { StudySessionPage } from './StudySessionPage';
 export { MockExamPage } from './MockExamPage';
 export { SpacedRepetitionPage } from './SpacedRepetitionPage';
+export { SettingsPage } from './SettingsPage';

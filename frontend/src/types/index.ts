@@ -547,3 +547,74 @@ export interface ReviewResult {
   correctAnswer: string;
   explanation: string;
 }
+
+// ============================================
+// Notification Settings Types
+// ============================================
+
+export interface NotificationChannel {
+  enabled: boolean;
+  verified?: boolean;
+  verifiedAt?: string;
+}
+
+export interface PushNotificationSettings extends NotificationChannel {
+  subscription?: PushSubscriptionJSON | null;
+}
+
+export interface EmailNotificationSettings extends NotificationChannel {
+  email?: string;
+}
+
+export interface WhatsAppNotificationSettings extends NotificationChannel {
+  phoneNumber?: string;
+  countryCode?: string;
+}
+
+export interface NotificationSettings {
+  push: PushNotificationSettings;
+  email: EmailNotificationSettings;
+  whatsapp: WhatsAppNotificationSettings;
+  studyReminders: boolean;
+  reminderTime: string;
+  reminderDays: number[];
+  streakAlerts: boolean;
+  streakAlertTime: string;
+  quizDelivery: boolean;
+  quizFrequency: 'low' | 'medium' | 'high';
+  weeklyDigest: boolean;
+  weeklyDigestDay: number;
+  weeklyDigestTime: string;
+  quietHoursEnabled: boolean;
+  quietHoursStart: string;
+  quietHoursEnd: string;
+  timezone: string;
+}
+
+export interface UserSettings {
+  id: string;
+  userId: string;
+  notifications: NotificationSettings;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UpdateNotificationSettingsInput {
+  push?: Partial<PushNotificationSettings>;
+  email?: Partial<EmailNotificationSettings>;
+  whatsapp?: Partial<WhatsAppNotificationSettings>;
+  studyReminders?: boolean;
+  reminderTime?: string;
+  reminderDays?: number[];
+  streakAlerts?: boolean;
+  streakAlertTime?: string;
+  quizDelivery?: boolean;
+  quizFrequency?: 'low' | 'medium' | 'high';
+  weeklyDigest?: boolean;
+  weeklyDigestDay?: number;
+  weeklyDigestTime?: string;
+  quietHoursEnabled?: boolean;
+  quietHoursStart?: string;
+  quietHoursEnd?: string;
+  timezone?: string;
+}

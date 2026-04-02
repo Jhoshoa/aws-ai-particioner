@@ -48,3 +48,9 @@ export type { ExamScoreCardProps } from './ExamScoreCard';
 
 export { ReviewStatsCard } from './ReviewStatsCard';
 export type { ReviewStatsCardProps } from './ReviewStatsCard';
+
+export { SettingsCard } from './SettingsCard';
+export type { SettingsCardProps } from './SettingsCard';
+
+export { ChannelStatus } from './ChannelStatus';
+export type { ChannelStatusProps } from './ChannelStatus';

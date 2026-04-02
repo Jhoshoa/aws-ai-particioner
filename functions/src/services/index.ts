@@ -10,3 +10,4 @@ export { streakService } from './streak.service';
 export { sessionService } from './session.service';
 export { mockExamService } from './mockExam.service';
 export { spacedRepetitionService } from './spacedRepetition.service';
+export { settingsService } from './settings.service';

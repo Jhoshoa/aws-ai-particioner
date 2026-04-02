@@ -588,3 +588,96 @@ export interface ReviewStats {
   averageEaseFactor: number;
   nextReviewDate: string | null;
 }
+
+// ============================================
+// Notification Settings Types
+// ============================================
+
+export interface NotificationChannel {
+  enabled: boolean;
+  verified?: boolean;
+  verifiedAt?: Date | string;
+}
+
+export interface PushNotificationSettings extends NotificationChannel {
+  subscription?: PushSubscriptionData | null;
+}
+
+export interface PushSubscriptionData {
+  endpoint: string;
+  expirationTime?: number | null;
+  keys: {
+    p256dh: string;
+    auth: string;
+  };
+}
+
+export interface EmailNotificationSettings extends NotificationChannel {
+  email?: string;
+}
+
+export interface WhatsAppNotificationSettings extends NotificationChannel {
+  phoneNumber?: string;
+  countryCode?: string;
+}
+
+export interface NotificationSettings {
+  // Channels
+  push: PushNotificationSettings;
+  email: EmailNotificationSettings;
+  whatsapp: WhatsAppNotificationSettings;
+
+  // Study Reminders
+  studyReminders: boolean;
+  reminderTime: string; // HH:MM format (24h)
+  reminderDays: number[]; // 0-6 (Sunday-Saturday)
+
+  // Streak Alerts
+  streakAlerts: boolean;
+  streakAlertTime: string; // HH:MM format
+
+  // Quiz Delivery (WhatsApp)
+  quizDelivery: boolean;
+  quizFrequency: 'low' | 'medium' | 'high'; // 1/day, 3/day, 5/day
+
+  // Weekly Digest
+  weeklyDigest: boolean;
+  weeklyDigestDay: number; // 0-6 (Sunday-Saturday)
+  weeklyDigestTime: string; // HH:MM format
+
+  // Quiet Hours
+  quietHoursEnabled: boolean;
+  quietHoursStart: string; // HH:MM
+  quietHoursEnd: string;   // HH:MM
+
+  // Timezone
+  timezone: string; // IANA timezone
+}
+
+export interface UserSettings {
+  id: string;
+  userId: string;
+  notifications: NotificationSettings;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+}
+
+export interface UpdateNotificationSettingsInput {
+  push?: Partial<PushNotificationSettings>;
+  email?: Partial<EmailNotificationSettings>;
+  whatsapp?: Partial<WhatsAppNotificationSettings>;
+  studyReminders?: boolean;
+  reminderTime?: string;
+  reminderDays?: number[];
+  streakAlerts?: boolean;
+  streakAlertTime?: string;
+  quizDelivery?: boolean;
+  quizFrequency?: 'low' | 'medium' | 'high';
+  weeklyDigest?: boolean;
+  weeklyDigestDay?: number;
+  weeklyDigestTime?: string;
+  quietHoursEnabled?: boolean;
+  quietHoursStart?: string;
+  quietHoursEnd?: string;
+  timezone?: string;
+}

@@ -62,6 +62,11 @@ const SpacedRepetitionPage = lazy(() =>
     default: m.SpacedRepetitionPage,
   }))
 );
+const SettingsPage = lazy(() =>
+  import('./components/pages/SettingsPage').then((m) => ({
+    default: m.SettingsPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -158,6 +163,14 @@ function App() {
                   element={
                     <AuthGuard>
                       <SpacedRepetitionPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/settings"
+                  element={
+                    <AuthGuard>
+                      <SettingsPage />
                     </AuthGuard>
                   }
                 />
