@@ -14,7 +14,8 @@
       "Bash(npm run build:functions:*)",
       "Bash(cat:*)",
       "Bash(wc:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(git check-ignore:*)"
     ]
   }
 }
