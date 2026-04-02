@@ -27,6 +27,46 @@ const NotFoundPage = lazy(() =>
     default: m.NotFoundPage,
   }))
 );
+const QuizPage = lazy(() =>
+  import('./components/pages/QuizPage').then((m) => ({
+    default: m.QuizPage,
+  }))
+);
+const NotesPage = lazy(() =>
+  import('./components/pages/NotesPage').then((m) => ({
+    default: m.NotesPage,
+  }))
+);
+const ProgressPage = lazy(() =>
+  import('./components/pages/ProgressPage').then((m) => ({
+    default: m.ProgressPage,
+  }))
+);
+const AchievementsPage = lazy(() =>
+  import('./components/pages/AchievementsPage').then((m) => ({
+    default: m.AchievementsPage,
+  }))
+);
+const StudySessionPage = lazy(() =>
+  import('./components/pages/StudySessionPage').then((m) => ({
+    default: m.StudySessionPage,
+  }))
+);
+const MockExamPage = lazy(() =>
+  import('./components/pages/MockExamPage').then((m) => ({
+    default: m.MockExamPage,
+  }))
+);
+const SpacedRepetitionPage = lazy(() =>
+  import('./components/pages/SpacedRepetitionPage').then((m) => ({
+    default: m.SpacedRepetitionPage,
+  }))
+);
+const SettingsPage = lazy(() =>
+  import('./components/pages/SettingsPage').then((m) => ({
+    default: m.SettingsPage,
+  }))
+);
 
 // Loading fallback component
 function PageLoader() {
@@ -70,7 +110,22 @@ function App() {
                 />
 
                 {/* Protected Routes */}
-                {/*
+                <Route
+                  path="/quiz"
+                  element={
+                    <AuthGuard>
+                      <QuizPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/notes"
+                  element={
+                    <AuthGuard>
+                      <NotesPage />
+                    </AuthGuard>
+                  }
+                />
                 <Route
                   path="/progress"
                   element={
@@ -79,7 +134,46 @@ function App() {
                     </AuthGuard>
                   }
                 />
-                */}
+                <Route
+                  path="/achievements"
+                  element={
+                    <AuthGuard>
+                      <AchievementsPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/study-session"
+                  element={
+                    <AuthGuard>
+                      <StudySessionPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/mock-exam"
+                  element={
+                    <AuthGuard>
+                      <MockExamPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/review"
+                  element={
+                    <AuthGuard>
+                      <SpacedRepetitionPage />
+                    </AuthGuard>
+                  }
+                />
+                <Route
+                  path="/settings"
+                  element={
+                    <AuthGuard>
+                      <SettingsPage />
+                    </AuthGuard>
+                  }
+                />
 
                 {/* Admin Routes */}
                 <Route

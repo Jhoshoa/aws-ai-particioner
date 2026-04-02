@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { body, param } from 'express-validator';
 import { progressService } from '../services';
 import {
@@ -11,6 +11,7 @@ import {
   successResponse,
   noContentResponse,
 } from '../utils/response.utils';
+import { AuthenticatedRequest } from '../types';
 
 const router = Router();
 
@@ -21,8 +22,9 @@ const router = Router();
 router.get(
   '/',
   authenticate,
-  asyncHandler(async (req: Request, res: Response) => {
-    const progress = await progressService.getUserProgress(req.user!.uid);
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    const progress = await progressService.getUserProgress(authReq.user.uid);
     return successResponse(res, progress, 'Progress retrieved successfully');
   })
 );
@@ -34,8 +36,9 @@ router.get(
 router.get(
   '/summary',
   authenticate,
-  asyncHandler(async (req: Request, res: Response) => {
-    const summary = await progressService.getProgressSummary(req.user!.uid);
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    const summary = await progressService.getProgressSummary(authReq.user.uid);
     return successResponse(res, summary, 'Progress summary retrieved successfully');
   })
 );
@@ -53,10 +56,11 @@ router.get(
       .withMessage('Domain ID must be between 1 and 10')
       .toInt(),
   ]),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
     const domainId = parseInt(req.params.domainId, 10);
     const progress = await progressService.getProgressByDomain(
-      req.user!.uid,
+      authReq.user.uid,
       domainId
     );
     return successResponse(res, progress, 'Domain progress retrieved successfully');
@@ -81,11 +85,12 @@ router.post(
       .toInt(),
     validateBoolean('completed'),
   ]),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
     const { domainId, topicIndex, completed } = req.body;
 
     const progress = await progressService.updateProgress(
-      req.user!.uid,
+      authReq.user.uid,
       domainId,
       topicIndex,
       completed
@@ -102,8 +107,9 @@ router.post(
 router.delete(
   '/',
   authenticate,
-  asyncHandler(async (req: Request, res: Response) => {
-    await progressService.resetProgress(req.user!.uid);
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    await progressService.resetProgress(authReq.user.uid);
     return noContentResponse(res);
   })
 );
@@ -125,12 +131,142 @@ router.delete(
       .withMessage('Topic index must be a non-negative integer')
       .toInt(),
   ]),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
     const domainId = parseInt(req.params.domainId, 10);
     const topicIndex = parseInt(req.params.topicIndex, 10);
 
-    await progressService.deleteProgress(req.user!.uid, domainId, topicIndex);
+    await progressService.deleteProgress(authReq.user.uid, domainId, topicIndex);
     return noContentResponse(res);
+  })
+);
+
+/**
+ * GET /progress/enhanced
+ * Get enhanced progress summary with user stats
+ */
+router.get(
+  '/enhanced',
+  authenticate,
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    const summary = await progressService.getEnhancedProgressSummary(authReq.user.uid);
+    return successResponse(res, summary, 'Enhanced progress summary retrieved successfully');
+  })
+);
+
+/**
+ * GET /progress/domains/:domainId/detail
+ * Get detailed progress for a specific domain
+ */
+router.get(
+  '/domains/:domainId/detail',
+  authenticate,
+  validate([
+    param('domainId')
+      .isInt({ min: 1, max: 5 })
+      .withMessage('Domain ID must be between 1 and 5')
+      .toInt(),
+  ]),
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    const domainId = parseInt(req.params.domainId, 10);
+    const progress = await progressService.getDomainProgressDetail(authReq.user.uid, domainId);
+    return successResponse(res, progress, 'Domain progress detail retrieved successfully');
+  })
+);
+
+/**
+ * PUT /progress/topics
+ * Update topic progress (enhanced version)
+ */
+router.put(
+  '/topics',
+  authenticate,
+  validate([
+    body('domainId')
+      .isInt({ min: 1, max: 5 })
+      .withMessage('Domain ID must be between 1 and 5'),
+    body('topicIndex')
+      .isInt({ min: 0 })
+      .withMessage('Topic index must be a non-negative integer'),
+    validateBoolean('completed'),
+    body('studyTimeMinutes')
+      .optional()
+      .isInt({ min: 0, max: 480 })
+      .withMessage('Study time must be between 0 and 480 minutes'),
+    body('notes')
+      .optional()
+      .isString()
+      .trim()
+      .isLength({ max: 1000 })
+      .withMessage('Notes must be less than 1000 characters'),
+  ]),
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    const progress = await progressService.updateTopicProgressEnhanced(authReq.user.uid, req.body);
+    return successResponse(res, progress, 'Progress updated successfully');
+  })
+);
+
+/**
+ * PUT /progress/topics/batch
+ * Batch update multiple topics
+ */
+router.put(
+  '/topics/batch',
+  authenticate,
+  validate([
+    body('updates')
+      .isArray({ min: 1, max: 100 })
+      .withMessage('Updates must be an array with 1-100 items'),
+    body('updates.*.domainId')
+      .isInt({ min: 1, max: 5 })
+      .withMessage('Each update domain ID must be between 1 and 5'),
+    body('updates.*.topicIndex')
+      .isInt({ min: 0 })
+      .withMessage('Each update topic index must be a non-negative integer'),
+    body('updates.*.completed')
+      .isBoolean()
+      .withMessage('Each update completed must be a boolean'),
+  ]),
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    await progressService.batchUpdateProgress(authReq.user.uid, req.body.updates);
+    return successResponse(res, null, 'Progress batch updated successfully');
+  })
+);
+
+/**
+ * POST /progress/study-time
+ * Add study time
+ */
+router.post(
+  '/study-time',
+  authenticate,
+  validate([
+    body('minutes')
+      .isInt({ min: 1, max: 480 })
+      .withMessage('Minutes must be between 1 and 480'),
+  ]),
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    await progressService.addStudyTime(authReq.user.uid, req.body.minutes);
+    return successResponse(res, null, 'Study time added successfully');
+  })
+);
+
+/**
+ * GET /progress/stats
+ * Get user stats
+ */
+router.get(
+  '/stats',
+  authenticate,
+  asyncHandler(async (req, res: Response) => {
+    const authReq = req as AuthenticatedRequest;
+    const stats = await progressService.getUserStats(authReq.user.uid);
+    return successResponse(res, stats, 'User stats retrieved successfully');
   })
 );
 

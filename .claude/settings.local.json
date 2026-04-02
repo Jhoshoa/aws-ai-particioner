@@ -7,7 +7,14 @@
       "Bash(npx tsc:*)",
       "Bash(npm run build:*)",
       "Bash(curl:*)",
-      "Bash(docker logs:*)"
+      "Bash(docker logs:*)",
+      "Bash(npm run lint)",
+      "Bash(timeout 15 npm run dev:*)",
+      "Bash(timeout 10 npm run dev:frontend:*)",
+      "Bash(npm run build:functions:*)",
+      "Bash(cat:*)",
+      "Bash(wc:*)",
+      "Bash(mkdir:*)"
     ]
   }
 }
