@@ -24,6 +24,7 @@
     "deploy:functions": "npm run build:functions && firebase deploy --only functions",
     "deploy:rules": "firebase deploy --only firestore:rules,storage:rules",
     "seed": "npm run emulators & sleep 5 && node scripts/seed.js",
+    "seed:docker": "node scripts/seed.js",
     "lint": "npm run lint -w frontend -w functions",
     "typecheck": "npm run typecheck -w frontend -w functions"
   },

@@ -15,7 +15,9 @@
       "Bash(cat:*)",
       "Bash(wc:*)",
       "Bash(mkdir:*)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "Bash(npm run seed:docker:*)",
+      "Bash(docker compose restart frontend)"
     ]
   }
 }
